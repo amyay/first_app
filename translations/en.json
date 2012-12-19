@@ -1,6 +1,5 @@
 {
-   "app": 
-   {
-        "description" : "my first app"
+   "app": {
+      "description" : "my first app"
    }
 }
