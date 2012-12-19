@@ -1,0 +1,7 @@
+<div>
+<p>
+Current ticket requester is now <strong>{{currentTicketRequester}}<strong>
+<!--
+<img src="{{currentTicketRequesterProfileURL}}" alt="current_requester_avatar" height="32" width="32"</img></p>
+-->
+</div>
