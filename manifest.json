@@ -1,0 +1,22 @@
+{
+    "author":
+    {
+       "name": "zendeskamy",
+       "email": "amy@zendesk.com"
+    },
+    
+    "location": "ticket_sidebar",
+    "defaultLocale" : "en",
+    "private": true,
+    "frameworkVersion": "0.5",
+    
+    "parameters": 
+    [
+        {
+            "name": "fan",
+            "type": "text",
+            "required": true
+        
+        }
+    ]
+}
