@@ -13,10 +13,9 @@
     "parameters": 
     [
         {
-            "name": "type of sweets",
+            "name": "type_of_sweets",
             "type": "text",
             "required": true
-        
         }
     ]
 }
