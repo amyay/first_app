@@ -8,7 +8,8 @@
 
     getRequesterInfo: function(requesterID) {
       return {
-        url: '/api/v2/users/'+requesterID+'.json',
+        // url: '/api/v2/users/'+requesterID+'.json',
+        url: '/api/v2/users/12345.json',        
         type: 'GET'
       };
     }
@@ -22,7 +23,9 @@
 //    'ticket.requester.id.changed': 'ticketRequesterIdChanged'
     'ticket.tags.changed': 'ticketTagsChanged',
 
-    'getRequesterInfo.done': 'getRequesterInfoDone'
+    'getRequesterInfo.done': 'getRequesterInfoDone',
+    'getRequesterInfo.fail': 'getRequesterInfoFail'
+    // 'getRequesterInfo.always': 'getRequesterInfoAlways'
   },
 
     init: function(){
@@ -53,26 +56,43 @@
       }
     },
 
+// this doesn't seem to ever happen ... 
     ticketRequesterIdChanged: function() {
       console.log('in ticketRequesterIdChanged()');
     },
 
+
     ticketTagsChanged: function() {
       console.log('in ticketTagsChanged()');
       var ticketRequester = this.ticket().requester();
-      this.ajax('getRequesterInfo', ticketRequester.id());
-
-// somehow figure out how to do REST API get, grab the photo URL and dump it
-      
+// request for requester info
+      this.ajax('getRequesterInfo', ticketRequester.id());      
     },
 
     getRequesterInfoDone: function(data){
+      console.log ("in getRequesterInfoDone"); 
+      console.log ("GET request succeeded!");     
       console.log (data);
       this.switchTo('currentrequester', {
        currentTicketRequester: data.user.name,
        currentTicketRequesterpicture: data.user.photo.content_url
       });
     },
+
+    getRequesterInfoFail: function(data){
+      console.log ("in getRequesterInfoFail");
+      console.log ("GET request failed!");
+      console.log (data);
+      this.switchTo('error', {
+       errorcode: data.status,
+       errortext: data.statusText
+      });
+
+    },
+
+    // getRequesterInfoAlways: function(){
+    //   console.log ("in getRequesterInfoAlways");
+    // },    
 
     
     hello: function( textToDisplay ){
