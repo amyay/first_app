@@ -19,10 +19,11 @@
     'app.activated' : 'init',
     'ticket.status.changed':  'ticketStatusChanged',
     'ticket.subject.changed':  'ticketSubjectChanged',
-//    'ticket.requester.id.changed': 'ticketRequesterIdChanged'
+    'ticket.requester.id.changed': 'ticketRequesterIdChanged',
     'ticket.tags.changed': 'ticketTagsChanged',
 
-    'getRequesterInfo.done': 'getRequesterInfoDone'
+    'getRequesterInfo.done': 'getRequesterInfoDone',
+    'getRequesterInfo.fail': 'getRequesterInfoFail'
   },
 
     init: function(){
@@ -44,29 +45,37 @@
       if (ticketSubject.indexOf("candy") !== -1) {
         console.log ('subject contains candy');
         this.switchTo ('candy');
-//        var newTicketSubject = ticketSubject.replace("candy", "CANDY");
-//        console.log('new ticket subject: ', newTicketSubject);
-//        this.ticket().subject(newTicketSubject);
       }
       else {
         this.init();
       }
     },
 
+// this doesn't seem to ever happen ... 
     ticketRequesterIdChanged: function() {
       console.log('in ticketRequesterIdChanged()');
     },
 
+
     ticketTagsChanged: function() {
       console.log('in ticketTagsChanged()');
       var ticketRequester = this.ticket().requester();
-      this.ajax('getRequesterInfo', ticketRequester.id());
-
-// somehow figure out how to do REST API get, grab the photo URL and dump it
-      
+// request for requester info
+      var ticketTags = this.ticket().tags();
+      console.log (ticketTags);
+      if (ticketTags.indexOf ("induce_error") !== -1) {
+        console.log ("tags consists of induce_error");
+        this.ajax('getRequesterInfo', 12345);        
+      }
+      else {
+        console.log ("tags are fine, go ahead and GET requester info ...");
+        this.ajax('getRequesterInfo', ticketRequester.id());              
+      }
     },
 
     getRequesterInfoDone: function(data){
+      console.log ("in getRequesterInfoDone"); 
+      console.log ("GET request succeeded!");     
       console.log (data);
       this.switchTo('currentrequester', {
        currentTicketRequester: data.user.name,
@@ -74,6 +83,15 @@
       });
     },
 
+    getRequesterInfoFail: function(data){
+      console.log ("in getRequesterInfoFail");
+      console.log ("GET request failed!");
+      console.log (data);
+      this.switchTo('error', {
+       errorcode: data.status,
+       errortext: data.statusText
+      });
+    },
     
     hello: function( textToDisplay ){
       console.log(textToDisplay);
