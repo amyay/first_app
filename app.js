@@ -8,8 +8,7 @@
 
     getRequesterInfo: function(requesterID) {
       return {
-        // url: '/api/v2/users/'+requesterID+'.json',
-        url: '/api/v2/users/12345.json',        
+        url: '/api/v2/users/'+requesterID+'.json',
         type: 'GET'
       };
     }
@@ -20,12 +19,11 @@
     'app.activated' : 'init',
     'ticket.status.changed':  'ticketStatusChanged',
     'ticket.subject.changed':  'ticketSubjectChanged',
-//    'ticket.requester.id.changed': 'ticketRequesterIdChanged'
+    'ticket.requester.id.changed': 'ticketRequesterIdChanged',
     'ticket.tags.changed': 'ticketTagsChanged',
 
     'getRequesterInfo.done': 'getRequesterInfoDone',
     'getRequesterInfo.fail': 'getRequesterInfoFail'
-    // 'getRequesterInfo.always': 'getRequesterInfoAlways'
   },
 
     init: function(){
@@ -47,9 +45,6 @@
       if (ticketSubject.indexOf("candy") !== -1) {
         console.log ('subject contains candy');
         this.switchTo ('candy');
-//        var newTicketSubject = ticketSubject.replace("candy", "CANDY");
-//        console.log('new ticket subject: ', newTicketSubject);
-//        this.ticket().subject(newTicketSubject);
       }
       else {
         this.init();
@@ -66,7 +61,16 @@
       console.log('in ticketTagsChanged()');
       var ticketRequester = this.ticket().requester();
 // request for requester info
-      this.ajax('getRequesterInfo', ticketRequester.id());      
+      var ticketTags = this.ticket().tags();
+      console.log (ticketTags);
+      if (ticketTags.indexOf ("induce_error") !== -1) {
+        console.log ("tags consists of induce_error");
+        this.ajax('getRequesterInfo', 12345);        
+      }
+      else {
+        console.log ("tags are fine, go ahead and GET requester info ...");
+        this.ajax('getRequesterInfo', ticketRequester.id());              
+      }
     },
 
     getRequesterInfoDone: function(data){
@@ -87,13 +91,7 @@
        errorcode: data.status,
        errortext: data.statusText
       });
-
     },
-
-    // getRequesterInfoAlways: function(){
-    //   console.log ("in getRequesterInfoAlways");
-    // },    
-
     
     hello: function( textToDisplay ){
       console.log(textToDisplay);

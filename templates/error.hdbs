@@ -1,9 +1,8 @@
 <div>
-<img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
-<span style="color: red;">ERROR!!</span>
-<img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
-<br>
-Cannot fetch requester info: <em>{{errorcode}} ({{errortext}})</em>
-<br>
-Please try again.
+  <img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
+  <span style="color: red;">ERROR!!</span>
+  <img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
+  
+  <br>Cannot fetch requester info: <em>{{errorcode}} ({{errortext}})</em>
+  <br>Please try again.
 </div>
