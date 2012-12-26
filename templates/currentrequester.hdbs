@@ -1,6 +1,6 @@
 <div>
   <p> 
-  {{current_user}} {{currentTicketRequester}}
+  {{t "currentRequester.current_user"}} {{currentTicketRequester}}
   <p>
   <img src="{{currentTicketRequesterpicture}}" height="32" width="32" />
 </div>

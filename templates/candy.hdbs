@@ -1,4 +1,4 @@
 <div>
-  <p> {{subject_line}}
+  <p> {{t "candy.subject_line"}}
   <img src="http://icons.iconarchive.com/icons/fixicon/market/128/candy-icon.png" alt="candy_image" height="32" width="32"</img></p>
 </div>
