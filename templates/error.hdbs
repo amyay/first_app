@@ -1,8 +1,8 @@
 <div>
   <img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
-  <span style="color: red;">ERROR!!</span>
+  <span style="color: red;">{{error}}!!</span>
   <img src="http://kinlane-productions.s3.amazonaws.com/api-evangelist/error.png" alt="error" height="16" width="16">
   
-  <br>Cannot fetch requester info: <em>{{errorcode}} ({{errortext}})</em>
-  <br>Please try again.
+  <br>{{not_found}}: <em>{{errorcode}} ({{errortext}})</em>
+  <br>{{try_again}}
 </div>

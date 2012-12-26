@@ -29,6 +29,7 @@
     init: function(){
       console.log(this.settings);
       this.switchTo('start', {
+        your_choice_of_sweet: this.I18n.t('start.choice_of_sweet'),
         typeOfSweet: this.settings.type_of_sweets
       });
     },
@@ -43,8 +44,9 @@
       var ticketSubject = this.ticket().subject();
       console.log ('ticket subject: ', ticketSubject);
       if (ticketSubject.indexOf("candy") !== -1) {
-        console.log ('subject contains candy');
-        this.switchTo ('candy');
+        this.switchTo ('candy', {
+          subject_line: this.I18n.t('candy.subject_line')
+        });
       }
       else {
         this.init();
@@ -78,8 +80,9 @@
       console.log ("GET request succeeded!");     
       console.log (data);
       this.switchTo('currentrequester', {
-       currentTicketRequester: data.user.name,
-       currentTicketRequesterpicture: data.user.photo.content_url
+        current_user: this.I18n.t ('currentRequester.current_user'),
+        currentTicketRequester: data.user.name,
+        currentTicketRequesterpicture: data.user.photo.content_url
       });
     },
 
@@ -88,8 +91,11 @@
       console.log ("GET request failed!");
       console.log (data);
       this.switchTo('error', {
-       errorcode: data.status,
-       errortext: data.statusText
+        error: this.I18n.t('error_text.error'), 
+        not_found: this.I18n.t('error_text.not_found'), 
+        errorcode: data.status,
+        errortext: data.statusText,
+        try_again: this.I18n.t('error_text.try_again')
       });
     },
     
