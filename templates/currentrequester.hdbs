@@ -1,6 +1,6 @@
 <div>
-<p> 
-Current ticket requester is now {{currentTicketRequester}}
-<p>
-<img src="{{currentTicketRequesterpicture}}" height="32" width="32" />
+  <p> 
+  {{t "currentRequester.current_user"}} {{currentTicketRequester}}
+  <p>
+  <img src="{{currentTicketRequesterpicture}}" height="32" width="32" />
 </div>
