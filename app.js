@@ -43,7 +43,6 @@
       var ticketSubject = this.ticket().subject();
       console.log ('ticket subject: ', ticketSubject);
       if (ticketSubject.indexOf("candy") !== -1) {
-        console.log ('subject contains candy');
         this.switchTo ('candy');
       }
       else {
@@ -78,8 +77,8 @@
       console.log ("GET request succeeded!");     
       console.log (data);
       this.switchTo('currentrequester', {
-       currentTicketRequester: data.user.name,
-       currentTicketRequesterpicture: data.user.photo.content_url
+        currentTicketRequester: data.user.name,
+        currentTicketRequesterpicture: data.user.photo.content_url
       });
     },
 
@@ -88,8 +87,9 @@
       console.log ("GET request failed!");
       console.log (data);
       this.switchTo('error', {
-       errorcode: data.status,
-       errortext: data.statusText
+        error_reason: this.I18n.t('error_text.not_found'), 
+        errorcode: data.status,
+        errortext: data.statusText
       });
     },
     

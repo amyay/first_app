@@ -1,5 +1,23 @@
 {
-   "app": {
-      "description" : "my first app"
-   }
+  "app": {
+    "description" : "my first app - just playing around with things here and there"  
+  },
+
+  "start": {
+    "choice_of_sweet" : "Your choice of sweet is "
+  },
+
+  "candy": {
+    "subject_line" : "Your subject line contains candy"
+  },
+
+  "currentRequester": {
+    "current_user": "Current ticket requester is"
+  },
+
+  "error_text": {
+    "error": "ERROR",
+    "not_found": "Cannot fetch requester info", 
+    "try_again": "Please try again."
+  }
 }
