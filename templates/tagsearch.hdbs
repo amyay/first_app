@@ -1,0 +1,29 @@
+<div>
+  <p> Here is a list of items tagged with the tags <em>{{ticketTags}}</em>: </p>
+  <br>
+  <ul id="TagSearchResults">
+    {{#tagSearchResults}}
+      {{#if subject}}
+        <li><img src="http://images.all-free-download.com/images/graphicmedium/ticket_1_98415.jpg" alt="ticket" height="20" width="20">
+        <a href="#/tickets/{{id}}">{{subject}}</a></li>
+        <li><em>ticket</em></li>
+        <br>
+      {{/if}}
+      {{#if title}}
+        <li><img src="http://www.cliffordcommunications.com/images/icon-knowledge.png" alt="forum topic" height="20" width="20">
+        <a href="#/topics/{{id}}">{{title}}</a></li>
+        <li><em>forum topic</em></li>
+        <br>
+      {{/if}}
+      {{#if name}}
+        <li><img src="http://www.clker.com/cliparts/c/f/d/9/12375607981156106793pitr_LEGO_smiley_--_wink.svg.med.png" alt="user" height="20" width="20">
+        <a href="#/users/{{id}}">{{name}}</a></li>
+        <li><em>user</em></li>
+        <br>
+      {{/if}}
+    {{/tagSearchResults}}
+  </ul>
+  {{#unless tagSearchResults.length}}
+    <p>0 result</p>
+  {{/unless}}
+</div>
