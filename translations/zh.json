@@ -1,0 +1,29 @@
+{
+  "app": {
+    "description" : "我的第一個應用程序 - 只是這裏玩一下"
+  },
+
+  "start": {
+    "choice_of_sweet" : "您的甜點選擇是"
+  },
+
+  "candy": {
+    "subject_line" : "你的工單主題包含了糖果"
+  },
+
+  "currentRequester": {
+    "current_user": "現時工單請求者是"
+  },
+
+  "error_text": {
+    "error": "錯誤",
+    "requester_not_found": "不能取工單請求者的資料",
+    "tag_search": "標籤搜尋出了問題",
+    "try_again": "請再嘗試"
+  },
+
+  "tag_search": {
+    "title": "以下是有關此標籤的搜尋結果 ",
+    "zero_results": "0 結果"
+  }
+}

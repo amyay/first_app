@@ -19,7 +19,7 @@
         },
 
         {
-            "name": "show_similarly_tagged_field_ID",
+            "name": "similarly_tagged_ID",
             "type": "number",
             "required": false
         }

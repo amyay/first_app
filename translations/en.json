@@ -1,5 +1,29 @@
 {
-   "app": {
-      "description" : "my first app"
-   }
+  "app": {
+    "description" : "my first app - just playing around with things here and there"
+  },
+
+  "start": {
+    "choice_of_sweet" : "Your choice of sweet is "
+  },
+
+  "candy": {
+    "subject_line" : "Your subject line contains candy"
+  },
+
+  "currentRequester": {
+    "current_user": "Current ticket requester is"
+  },
+
+  "error_text": {
+    "error": "ERROR",
+    "requester_not_found": "Cannot fetch requester info",
+    "tag_search": "Problem with tag search",
+    "try_again": "Please try again."
+  },
+
+  "tag_search": {
+    "title": "Here is a list of items tagged with the tags ",
+    "zero_results": "0 results"
+  }
 }

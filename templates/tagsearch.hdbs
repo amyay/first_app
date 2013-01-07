@@ -1,5 +1,5 @@
 <div>
-  <p> Here is a list of items tagged with the tags <em>{{ticketTags}}</em>: </p>
+  <p> {{t "tag_search.title"}}<em>{{ticketTags}}</em>: </p>
   <br>
   <ul id="TagSearchResults">
     {{#tagSearchResults}}
@@ -24,6 +24,6 @@
     {{/tagSearchResults}}
   </ul>
   {{#unless tagSearchResults.length}}
-    <p>0 result</p>
+    <p>{{t "tag_search.zero_results"}}</p>
   {{/unless}}
 </div>
