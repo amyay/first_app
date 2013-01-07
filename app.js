@@ -6,9 +6,18 @@
 
   requests: {
 
+    // GET current requester by user ID
     getRequesterInfo: function(requesterID) {
       return {
         url: '/api/v2/users/'+requesterID+'.json',
+        type: 'GET'
+      };
+    },
+
+    // search similarly tagged items (not limited to tickets)
+    tagSearch: function (tagString) {
+      return {
+        url: '/api/v2/search.json?query=tags:"'+tagString+'"',
         type: 'GET'
       };
     }
@@ -23,25 +32,25 @@
     'ticket.tags.changed': 'ticketTagsChanged',
 
     'getRequesterInfo.done': 'getRequesterInfoDone',
-    'getRequesterInfo.fail': 'getRequesterInfoFail'
+    'getRequesterInfo.fail': 'getRequesterInfoFail',
+
+    'tagSearch.done' : 'tagSearchDone',
+    'tagSearch.fail' : 'tagSearchFail'
   },
 
     init: function(){
-      console.log(this.settings);
       this.switchTo('start', {
         typeOfSweet: this.settings.type_of_sweets
       });
     },
 
+    // this doesn't seem to ever happen ...
     ticketStatusChanged: function() {
-      console.log('in ticketStatusChanged()');
     },
-    
-// switch to candy template if subject contains "candy" //
+
+    // switch to candy template if subject contains "candy"
     ticketSubjectChanged: function() {
-      console.log('in ticketSubjectChanged()');
-      var ticketSubject = this.ticket().subject();
-      console.log ('ticket subject: ', ticketSubject);
+      var ticketSubject = this.ticket().subject().toLowerCase();
       if (ticketSubject.indexOf("candy") !== -1) {
         this.switchTo ('candy');
       }
@@ -50,51 +59,83 @@
       }
     },
 
-// this doesn't seem to ever happen ... 
+    // this doesn't seem to ever happen ...
     ticketRequesterIdChanged: function() {
-      console.log('in ticketRequesterIdChanged()');
     },
 
-
+    // if custom field "show similiar tagged items" is not selected, show current requester info
+    // otherwise, show a list of similiarly tagged items
     ticketTagsChanged: function() {
-      console.log('in ticketTagsChanged()');
       var ticketRequester = this.ticket().requester();
-// request for requester info
       var ticketTags = this.ticket().tags();
-      console.log (ticketTags);
+      // self-induce error: if tag contains "induce_error"
+      // give it a bogus requester ID to induce error
       if (ticketTags.indexOf ("induce_error") !== -1) {
-        console.log ("tags consists of induce_error");
-        this.ajax('getRequesterInfo', 12345);        
+        this.ajax('getRequesterInfo', 12345);
       }
+      // not inducing error, so carry on to check to see if search is needed
       else {
-        console.log ("tags are fine, go ahead and GET requester info ...");
-        this.ajax('getRequesterInfo', ticketRequester.id());              
+        var showSimilarlyTaggedItems = this.ticket().customField("custom_field_"+this.settings.similarly_tagged_ID);
+        // if search is needed, then grab all tags and do search
+        if (showSimilarlyTaggedItems == "yes") {
+          var tagString = "";
+          for (var i = 0; i < ticketTags.length; i++) {
+            tagString = tagString + ticketTags[i] + "+";
+          }
+          // if tagline contains something, go search
+          if (tagString.length > 0) {
+            this.ajax('tagSearch', tagString);
+          }
+          // if there are no tags, don't bother searching at all
+          else {
+            this.init();
+          }
+        }
+        // no need to search, just grab requester info
+        else {
+          this.ajax('getRequesterInfo', ticketRequester.id());
+        }
       }
     },
 
     getRequesterInfoDone: function(data){
-      console.log ("in getRequesterInfoDone"); 
-      console.log ("GET request succeeded!");     
-      console.log (data);
+      // check to see if requester has photo or not
+      var userPhotoURL;
+      if (data.user.photo == null) {
+        // generic user photo
+        userPhotoURL = "https://i0.wp.com/trial.zendesk.com/images/frame_user.png?ssl=1";
+      }
+      else {
+        userPhotoURL = data.user.photo.content_url;
+      }
       this.switchTo('currentrequester', {
         currentTicketRequester: data.user.name,
-        currentTicketRequesterpicture: data.user.photo.content_url
+        currentTicketRequesterPicture: userPhotoURL
       });
     },
 
     getRequesterInfoFail: function(data){
-      console.log ("in getRequesterInfoFail");
-      console.log ("GET request failed!");
-      console.log (data);
       this.switchTo('error', {
-        error_reason: this.I18n.t('error_text.not_found'), 
+        error_reason: this.I18n.t('error_text.requester_not_found'),
         errorcode: data.status,
         errortext: data.statusText
       });
     },
-    
-    hello: function( textToDisplay ){
-      console.log(textToDisplay);
+
+    tagSearchDone: function(data){
+      this.switchTo('tagsearch', {
+        ticketTags: this.ticket().tags(),
+        tagSearchResults: data.results
+       });
+    },
+
+    tagSearchFail: function(data){
+      this.switchTo('error', {
+        error_reason: this.I18n.t('error_text.tag_search'),
+        errorcode: data.status,
+        errortext: data.statusText
+      });
     }
+
   };
 }());
