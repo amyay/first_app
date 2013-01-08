@@ -4,18 +4,24 @@
        "name": "zendeskamy",
        "email": "amy@zendesk.com"
     },
-    
+
     "location": "ticket_sidebar",
     "defaultLocale" : "en",
     "private": true,
     "frameworkVersion": "0.5",
-    
-    "parameters": 
+
+    "parameters":
     [
         {
             "name": "type_of_sweets",
             "type": "text",
             "required": true
+        },
+
+        {
+            "name": "similarly_tagged_ID",
+            "type": "number",
+            "required": false
         }
     ]
 }

@@ -1,6 +1,6 @@
 {
   "app": {
-    "description" : "my first app - just playing around with things here and there"  
+    "description" : "my first app - just playing around with things here and there"
   },
 
   "start": {
@@ -17,7 +17,13 @@
 
   "error_text": {
     "error": "ERROR",
-    "not_found": "Cannot fetch requester info", 
+    "requester_not_found": "Cannot fetch requester info",
+    "tag_search": "Problem with tag search",
     "try_again": "Please try again."
+  },
+
+  "tag_search": {
+    "title": "Here is a list of items tagged with the tags ",
+    "zero_results": "0 results"
   }
 }
